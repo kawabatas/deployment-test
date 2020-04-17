@@ -7,3 +7,15 @@ jobs:
       - name: Deploy
         run: |
           echo "Deploy"
+      - name: Update deployment status
+        if: always()
+        uses: actions/github-script@0.9.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.repos.createDeploymentStatus({
+              deployment_id: context.payload.deployment.id,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: ${{ job.status }}
+            })
