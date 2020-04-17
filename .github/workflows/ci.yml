@@ -8,7 +8,7 @@ jobs:
         run: |
           echo "Deploy"
       - name: Update deployment status
-        if: always()
+        if: success()
         uses: actions/github-script@0.9.0
         with:
           github-token: ${{secrets.BOT_GITHUB_TOKEN}}
@@ -17,5 +17,5 @@ jobs:
               deployment_id: context.payload.deployment.id,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              state: ${{ job.status }}
+              state: "success"
             })
