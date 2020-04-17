@@ -11,7 +11,7 @@ jobs:
         if: always()
         uses: actions/github-script@0.9.0
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{secrets.BOT_GITHUB_TOKEN}}
           script: |
             github.repos.createDeploymentStatus({
               deployment_id: context.payload.deployment.id,
