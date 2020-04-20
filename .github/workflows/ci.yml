@@ -12,7 +12,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const jobStatus = ${{ job.status }}
+            const jobStatus = String(${{ job.status }})
             const deployStateSuccess = 'success'
             const deployStateFailure = 'failure'
             const deployStatePending = 'pending'
