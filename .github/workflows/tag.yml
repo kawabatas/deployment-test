@@ -8,9 +8,9 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+*"
       - "!*-sdk-*"
     # tags-ignore: tags と tags-ignore は同時には使えない
-    release:
-      types:
-        - created
+  release:
+    types:
+      - created
 jobs:
   deploy:
     runs-on: ubuntu-latest
