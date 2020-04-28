@@ -6,25 +6,25 @@ on:
       - master
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
-      # - "!*-sdk-*" 不要だな
-    # tags-ignore: tags と tags-ignore は同時には使えない
-  release:
-    types:
-      - created
+      # 不要と判断
+      # - '!*-sdk-*'
+    # tags と tags-ignore は同時には使えない
+    # tags-ignore:
+    #   - '*-sdk-*'
+  # Github の Releases から作成した際も push イベント(tag)が実行される
+  # release:
+  #   types:
+  #     - created
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: push && develop
-        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-        run: echo "push && develop"
-      - name: push && master
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: echo "push && master"
-      - name: push && tag
-        if: github.event_name == 'push' && github.ref == 'refs/tags/v[0-9]+.[0-9]+.[0-9]+*'
-        run: echo "push && tag"
-      - name: release && tag
+      - name: develop
+        if: github.ref == 'refs/heads/develop'
+        run: echo "develop"
+      - name: master
+        if: github.ref == 'refs/heads/master'
+        run: echo "master"
+      - name: tag
         if: startsWith(github.ref, 'refs/tags/')
-        # run: echo "release && tag"
-        run: echo "${{ toJson(github) }}"
+        run: echo "tag"
