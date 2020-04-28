@@ -21,7 +21,10 @@ jobs:
       - name: push && master
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: echo "push && master"
-      - name: tag
+      - name: push && tag
         if: github.event_name == 'push' && github.ref == 'refs/tags/v[0-9]+.[0-9]+.[0-9]+*'
-        run: echo "tag"
+        run: echo "push && tag"
         # run: echo "${{ toJson(github) }}"
+      - name: release && tag
+        if: github.ref == 'refs/tags/v[0-9]+.[0-9]+.[0-9]+*'
+        run: echo "release && tag"
