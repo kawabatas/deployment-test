@@ -1,0 +1,25 @@
+name: TAG
+on:
+  push:
+    branches:
+      - develop
+      - master
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+      - "!*-sdk-*"
+    # tags-ignore: tags と tags-ignore は同時には使えない
+    # release:
+    #   types:
+    #     - created
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: push && develop
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: echo "push && develop"
+      - name: push && master
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: echo "push && master"
+      - name: tag
+        run: echo "${{ toJson(github) }}"
